@@ -34,10 +34,15 @@
             animation: driftMist 20s ease-in-out infinite alternate; pointer-events: none;
         }
 
-        /* Canvas das Partículas */
+        /* Camada para as Partículas */
         #particles-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2; pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none; /* Não atrapalha cliques */
         }
 
         /* 3. CABEÇALHO */
@@ -70,29 +75,28 @@
         .visible { opacity: 1; visibility: visible; transform: scale(1); }
         .hidden { transform: scale(0.95); }
 
-        /* 5. CONTEÚDO HOME & TYPEWRITER */
+        /* 5. CONTEÚDO HOME */
         #home { flex-direction: column; justify-content: center; align-items: flex-start; }
         #home h1 { 
             font-family: 'Cinzel Decorative', serif; font-size: clamp(45px, 10vw, 100px); 
             line-height: 0.9; cursor: pointer;
             animation: pulseGlow 4s infinite;
         }
-        
-        #home .typewriter-text { 
+        #home p { 
             font-size: 14px; color: #aaa; letter-spacing: 5px; 
             text-transform: uppercase; margin-top: 15px;
-            min-height: 20px;
+            min-height: 1.2em;
         }
         
-        /* Cursor piscante do efeito hacker */
+        /* Cursor do Typewriter */
         #cursor {
-            display: inline-block;
-            width: 8px;
-            height: 15px;
-            background-color: #5cf2e3;
-            margin-left: 5px;
-            animation: blink 0.8s infinite;
-            vertical-align: middle;
+            border-left: 2px solid #5cf2e3;
+            margin-left: 3px;
+            animation: blinkCursor 0.8s infinite;
+        }
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         /* 6. CONTEÚDO CARDS */
@@ -104,7 +108,7 @@
             max-width: 650px; border-radius: 0 30px 30px 0;
             box-shadow: 25px 25px 50px rgba(0,0,0,0.6);
             margin-bottom: 50px;
-            margin-top: 80px;
+            margin-top: 80px; /* Ajuste para não colar no topo */
         }
 
         .symbol-container {
@@ -127,11 +131,13 @@
 
         .highlight { color: #5cf2e3; font-weight: 600; }
         
+        /* Variantes para a aba Planejar (Roxo) */
         .purple-theme { border-left-color: #8a2be2 !important; }
         .purple-theme h2 { color: #8a2be2 !important; }
         .purple-theme .highlight { color: #8a2be2 !important; }
         .purple-theme .order-text li::before { color: #8a2be2 !important; }
 
+        /* Variantes para a aba Sobre (Mix Azul/Roxo) */
         .mix-theme { border-left-color: #483d8b !important; }
         .mix-theme h2 { color: #6a5acd !important; }
         .mix-theme .highlight { color: #6a5acd !important; }
@@ -176,18 +182,20 @@
             to { transform: rotate(360deg); }
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
         /* RESPONSIVIDADE MOBILE */
         @media (max-width: 900px) {
             body { overflow-y: auto; }
             header { padding: 0 20px; height: 70px; background: rgba(0,0,0,0.8); }
-            #side-menu { width: 100%; height: 70px; bottom: 0; top: auto; background: #0a0a0a; border-top: 1px solid #222; }
-            #side-menu ul { flex-direction: row; align-items: center; justify-content: space-around; height: 100%; padding: 0 10px; gap: 0; }
-            #side-menu a { font-size: 11px; text-transform: uppercase; }
+            
+            #side-menu { 
+                width: 100%; height: 70px; bottom: 0; top: auto; 
+                background: #0a0a0a; padding: 0; border-top: 1px solid #222;
+            }
+            #side-menu ul { 
+                flex-direction: row; align-items: center; justify-content: space-around; 
+                height: 100%; padding: 0 10px; gap: 0;
+            }
+            #side-menu a { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
             .page-section { padding: 80px 20px 100px 20px; align-items: flex-start; }
             #home { justify-content: center; align-items: center; text-align: center; }
             .order-card { border-radius: 20px; border-left: none; border-top: 3px solid #5cf2e3; }
@@ -199,7 +207,6 @@
 <body>
 
     <div id="scene-container"></div>
-    <!-- Camada das Partículas -->
     <canvas id="particles-canvas"></canvas>
 
     <header>
@@ -215,13 +222,14 @@
     <!-- PÁGINA HOME -->
     <section id="home" class="page-section visible">
         <h1 onclick="showPage('home')">King.dev</h1>
-        <div class="typewriter-text"><span id="text"></span><span id="cursor"></span></div>
+        <p id="typewriter-container">A King.dev Production™<span id="cursor"></span></p>
     </section>
 
     <!-- PÁGINA ENCOMENDAR -->
     <section id="encomendar" class="page-section hidden">
         <div class="order-card">
             <div class="symbol-container">
+                <!-- CUBO DE METATRON -->
                 <svg class="symbol-svg cyan" viewBox="0 0 100 100" fill="none" stroke-width="0.5">
                     <circle cx="50" cy="50" r="18"/>
                     <circle cx="50" cy="20" r="18"/>
@@ -260,6 +268,7 @@
     <section id="sobre" class="page-section hidden">
         <div class="order-card mix-theme">
             <div class="symbol-container">
+                <!-- FLOR DA VIDA -->
                 <svg class="symbol-svg mix" viewBox="0 0 100 100" fill="none" stroke-width="0.3">
                     <defs>
                         <linearGradient id="gradMix" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -299,6 +308,7 @@
     <section id="planejar" class="page-section hidden">
         <div class="order-card purple-theme">
             <div class="symbol-container">
+                <!-- SRI YANTRA -->
                 <svg class="symbol-svg purple" viewBox="0 0 100 100" fill="none" stroke-width="0.5">
                     <circle cx="50" cy="50" r="45"/>
                     <circle cx="50" cy="50" r="38"/>
@@ -342,75 +352,66 @@
     </nav>
 
     <script>
-        // --- SISTEMA DE PARTÍCULAS ---
+        // --- 1. SISTEMA DE PARTÍCULAS (POEIRA ESTELAR) ---
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(92, 242, 227, ${this.opacity})`; // Cor ciano suave
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+        let particlesArray;
 
         function initParticles() {
-            particles = [];
-            for (let i = 0; i < 80; i++) {
-                particles.push(new Particle());
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.5;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.5) - 0.25;
+                let directionY = (Math.random() * 0.5) - 0.25;
+                let color = 'rgba(92, 242, 227, 0.3)'; // Ciano suave
+                particlesArray.push({x, y, directionX, directionY, size, color});
             }
         }
 
         function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
             requestAnimationFrame(animateParticles);
-        }
-        initParticles();
-        animateParticles();
-
-        // --- SISTEMA DE TYPEWRITER ---
-        const textToType = "A King.dev Production™";
-        const textElement = document.getElementById('text');
-        let charIndex = 0;
-
-        function typewriter() {
-            if (charIndex < textToType.length) {
-                textElement.textContent += textToType.charAt(charIndex);
-                charIndex++;
-                setTimeout(typewriter, 150); // Velocidade da digitação
+            ctx.clearRect(0,0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) {
+                let p = particlesArray[i];
+                p.x += p.directionX;
+                p.y += p.directionY;
+                // Reposicionar se sair da tela
+                if (p.x > canvas.width) p.x = 0; else if (p.x < 0) p.x = canvas.width;
+                if (p.y > canvas.height) p.y = 0; else if (p.y < 0) p.y = canvas.height;
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
             }
         }
 
-        // --- SISTEMA DE NAVEGAÇÃO ---
+        window.addEventListener('resize', () => {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            initParticles();
+        });
+
+        // --- 2. EFEITO TYPEWRITER (HOME) ---
+        const textElement = document.getElementById('typewriter-container');
+        const originalText = "A King.dev Production™";
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < originalText.length) {
+                // Mantém o cursor no final enquanto digita
+                textElement.innerHTML = originalText.substring(0, charIndex + 1) + '<span id="cursor"></span>';
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        // --- 3. SISTEMA DE NAVEGAÇÃO ---
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => {
                 section.scrollTo(0, 0);
@@ -436,8 +437,13 @@
             }
         }
 
+        // Inicialização
         window.onload = () => {
-            typewriter();
+            initParticles();
+            animateParticles();
+            // Limpa o texto inicial para começar a digitar
+            textElement.innerHTML = '<span id="cursor"></span>';
+            setTimeout(typeWriter, 500);
         };
     </script>
 </body>
