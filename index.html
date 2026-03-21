@@ -71,13 +71,7 @@
         .hidden { transform: scale(0.95); }
 
         /* 5. CONTEÚDO HOME & TYPEWRITER */
-        #home { 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: flex-start;
-            /* CORREÇÃO: Garante o fundo preto profundo na Home */
-            background-color: #050505; 
-        }
+        #home { flex-direction: column; justify-content: center; align-items: flex-start; }
         #home h1 { 
             font-family: 'Cinzel Decorative', serif; font-size: clamp(45px, 10vw, 100px); 
             line-height: 0.9; cursor: pointer;
@@ -205,6 +199,7 @@
 <body>
 
     <div id="scene-container"></div>
+    <!-- Camada das Partículas -->
     <canvas id="particles-canvas"></canvas>
 
     <header>
@@ -217,11 +212,13 @@
         </div>
     </header>
 
+    <!-- PÁGINA HOME -->
     <section id="home" class="page-section visible">
         <h1 onclick="showPage('home')">King.dev</h1>
         <div class="typewriter-text"><span id="text"></span><span id="cursor"></span></div>
     </section>
 
+    <!-- PÁGINA ENCOMENDAR -->
     <section id="encomendar" class="page-section hidden">
         <div class="order-card">
             <div class="symbol-container">
@@ -259,6 +256,7 @@
         </div>
     </section>
 
+    <!-- PÁGINA SOBRE -->
     <section id="sobre" class="page-section hidden">
         <div class="order-card mix-theme">
             <div class="symbol-container">
@@ -297,6 +295,7 @@
         </div>
     </section>
 
+    <!-- PÁGINA PLANEJAR SITE -->
     <section id="planejar" class="page-section hidden">
         <div class="order-card purple-theme">
             <div class="symbol-container">
@@ -332,6 +331,7 @@
         </div>
     </section>
 
+    <!-- MENU DE NAVEGAÇÃO -->
     <nav id="side-menu">
         <ul>
             <li><a href="javascript:void(0)" onclick="showPage('encomendar')" id="link-encomendar">Encomendar</a></li>
